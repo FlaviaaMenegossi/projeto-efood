@@ -1,0 +1,66 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependências e build
+node_modules
+dist
+dist-ssr
+*.local
+*.tsbuildinfo
+coverage
+.vite
+.cache
+
+# Variáveis de ambiente (podem ter senhas, tokens e chaves de API)
+.env
+.env.*
+!.env.example
+
+# Chaves, certificados e credenciais
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+id_rsa*
+id_ed25519*
+credentials*.json
+service-account*.json
+secrets.*
+*.secret
+.npmrc
+
+# Configurações locais de deploy (guardam tokens do projeto)
+.vercel
+.netlify
+.firebase
+.firebaserc
+
+# Bancos de dados locais e backups
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.tmp
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Arquivos do Windows / OneDrive
+Thumbs.db
+desktop.ini
