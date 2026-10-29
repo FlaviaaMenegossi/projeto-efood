@@ -23,7 +23,7 @@
 
 O **eFood** é um site de delivery focado em **massas artesanais**. A pessoa encontra trattorias perto de casa, navega pelo cardápio, adiciona pratos ao carrinho e finaliza o pedido — recebendo em casa ou retirando no local — tudo em uma interface pensada para dar **fome só de olhar**.
 
-O projeto partiu de um [layout base no Figma](https://www.figma.com/design/JjduV2Tg713TzYUUsees8b/efood) e foi **redesenhado do zero**: nova paleta inspirada na cozinha italiana (vermelho tomate, verde manjericão, amarelo trigo), tipografia editorial com **Fraunces + Manrope**, animações e várias funcionalidades que não existiam no original.
+O projeto partiu de um layout do curso e foi **redesenhado do zero**: nova paleta inspirada na cozinha italiana (vermelho tomate, verde manjericão, amarelo trigo), tipografia editorial com **Fraunces + Manrope**, animações e várias funcionalidades que não existiam no original.
 
 > 💡 Projeto de estudo/portfólio. Restaurantes, preços, avaliações, depoimentos e selos são fictícios, e o pagamento é apenas simulado.
 
