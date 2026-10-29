@@ -129,6 +129,18 @@ export const Item = styled.li`
     color: ${cores.tintaSuave};
   }
 
+  em {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background-color: ${cores.manjericao};
+    color: ${cores.trigo};
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 700;
+  }
+
   .direita {
     display: flex;
     flex-direction: column;
@@ -193,28 +205,52 @@ export const Resumo = styled.div`
   border-top: 1px solid ${cores.linha};
   background-color: ${cores.papel};
 
-  p {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    color: ${cores.tintaSuave};
+  > button {
+    padding: 14px 22px;
+    font-size: 15px;
   }
+`
 
-  .total {
-    margin: 4px 0 8px;
-    font-size: 18px;
-    font-weight: 700;
-    color: ${cores.tinta};
+export const CampoCupom = styled.form<{ $erro: boolean }>`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 
-    span {
-      font-family: ${fontes.titulo};
-      font-size: 24px;
+  input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1.5px solid ${({ $erro }) => ($erro ? cores.tomate : cores.linha)};
+    background-color: ${cores.creme};
+    font: inherit;
+    font-size: 14px;
+    text-transform: uppercase;
+
+    &::placeholder {
+      text-transform: none;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: ${cores.tinta};
     }
   }
 
   button {
-    padding: 16px 22px;
-    font-size: 15px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background-color: ${cores.tinta};
+    color: ${cores.creme};
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  small {
+    width: 100%;
+    font-size: 12px;
+    font-weight: 700;
+    color: ${cores.tomate};
   }
 `
 

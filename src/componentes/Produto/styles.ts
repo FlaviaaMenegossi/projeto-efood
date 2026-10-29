@@ -25,6 +25,7 @@ export const Card = styled.article`
 `
 
 export const Foto = styled.div`
+  position: relative;
   overflow: hidden;
   border-radius: 16px;
   aspect-ratio: 1;
@@ -59,8 +60,31 @@ export const Rodape = styled.div`
 `
 
 export const Preco = styled.span`
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
   font-family: ${fontes.titulo};
   font-size: 20px;
   font-weight: 600;
   color: ${cores.tomate};
+
+  s {
+    font-family: ${fontes.texto};
+    font-size: 14px;
+    font-weight: 500;
+    color: ${cores.tintaSuave};
+  }
+`
+
+export const Selo = styled.span`
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background-color: ${cores.manjericao};
+  color: ${cores.trigo};
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.5);
 `

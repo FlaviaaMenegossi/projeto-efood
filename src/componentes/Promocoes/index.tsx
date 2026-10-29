@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useCarrinho } from '../../contexto/useCarrinho'
 import { formataPreco } from '../../data/restaurantes'
 import type { Promocao } from '../../data/promocoes'
 import {
@@ -38,7 +39,7 @@ const Promocoes = ({ promocoes }: Props) => {
   const [atual, setAtual] = useState(0)
   const [pausado, setPausado] = useState(false)
   const [restante, setRestante] = useState(tempoAteMeiaNoite)
-  const [copiado, setCopiado] = useState(false)
+  const { aplicarCupom, cupom: cupomAtivo } = useCarrinho()
 
   const irPara = (indice: number) => setAtual((indice + promocoes.length) % promocoes.length)
 
@@ -47,14 +48,10 @@ const Promocoes = ({ promocoes }: Props) => {
     return () => clearInterval(timer)
   }, [])
 
-  const copiarCupom = async (cupom: string) => {
-    try {
-      await navigator.clipboard.writeText(cupom)
-      setCopiado(true)
-      setTimeout(() => setCopiado(false), 2000)
-    } catch {
-      setCopiado(false)
-    }
+  // aplica o cupom no carrinho e, de quebra, copia o código
+  const usarCupom = (codigo: string) => {
+    aplicarCupom(codigo)
+    navigator.clipboard?.writeText(codigo).catch(() => {})
   }
 
   return (
@@ -99,8 +96,8 @@ const Promocoes = ({ promocoes }: Props) => {
               <div className="acoes">
                 <Chamada to={promocao.link}>{promocao.chamada} →</Chamada>
                 {promocao.cupom && (
-                  <Cupom type="button" onClick={() => copiarCupom(promocao.cupom!)}>
-                    <span>{copiado ? 'Cupom copiado' : 'Toque para copiar'}</span>
+                  <Cupom type="button" onClick={() => usarCupom(promocao.cupom!)}>
+                    <span>{cupomAtivo?.codigo === promocao.cupom ? 'Cupom aplicado ✓' : 'Toque para aplicar'}</span>
                     <b>{promocao.cupom}</b>
                   </Cupom>
                 )}

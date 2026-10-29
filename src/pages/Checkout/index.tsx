@@ -2,8 +2,10 @@ import { useState, type ChangeEvent, type FormEvent } from 'react'
 import Cabecalho from '../../componentes/Cabecalho'
 import Botao from '../../componentes/Botao'
 import Rodape from '../../componentes/Rodape'
-import { useCarrinho, type ItemCarrinho } from '../../contexto/useCarrinho'
-import { formataPreco } from '../../data/restaurantes'
+import SeletorModo from '../../componentes/SeletorModo'
+import ValoresPedido from '../../componentes/ValoresPedido'
+import { useCarrinho, type ModoEntrega } from '../../contexto/useCarrinho'
+import { formataPreco, restaurantes } from '../../data/restaurantes'
 import { Container } from '../../styles'
 import {
   Campo,
@@ -14,26 +16,34 @@ import {
   Grade,
   Linha,
   Pagina,
+  Retiradas,
   Resumo,
   Titulo
 } from './styles'
 
-type Etapa = 'entrega' | 'pagamento' | 'confirmado'
+type Etapa = 'dados' | 'pagamento' | 'confirmado'
 
 type Dados = Record<string, string>
 
 type Pedido = {
   numero: string
-  itens: ItemCarrinho[]
   total: number
   nome: string
-  endereco: string
+  modo: ModoEntrega
+  destino: string
 }
 
 const apenasNumeros = (valor: string) => valor.replace(/\D/g, '')
 
+const gerarNumeroPedido = () => String(Math.floor(100000 + Math.random() * 900000))
+
 const mascaras: Record<string, (valor: string) => string> = {
   cep: (valor) => apenasNumeros(valor).slice(0, 8).replace(/^(\d{5})(\d)/, '$1-$2'),
+  telefone: (valor) =>
+    apenasNumeros(valor)
+      .slice(0, 11)
+      .replace(/^(\d{2})(\d)/, '($1) $2')
+      .replace(/(\d{5})(\d{1,4})$/, '$1-$2'),
   numeroCartao: (valor) =>
     apenasNumeros(valor)
       .slice(0, 16)
@@ -44,13 +54,19 @@ const mascaras: Record<string, (valor: string) => string> = {
   numero: (valor) => apenasNumeros(valor).slice(0, 6)
 }
 
-const validarEntrega = (dados: Dados) => {
+const validarDados = (dados: Dados, modo: ModoEntrega) => {
   const erros: Dados = {}
-  if (!dados.nome?.trim()) erros.nome = 'Informe quem vai receber'
-  if (!dados.endereco?.trim()) erros.endereco = 'Informe o endereço'
-  if (!dados.cidade?.trim()) erros.cidade = 'Informe a cidade'
-  if (apenasNumeros(dados.cep ?? '').length !== 8) erros.cep = 'CEP com 8 dígitos'
-  if (!dados.numero?.trim()) erros.numero = 'Informe o número'
+  if (!dados.nome?.trim()) erros.nome = modo === 'entrega' ? 'Informe quem vai receber' : 'Informe quem vai retirar'
+
+  if (modo === 'entrega') {
+    if (!dados.endereco?.trim()) erros.endereco = 'Informe o endereço'
+    if (!dados.cidade?.trim()) erros.cidade = 'Informe a cidade'
+    if (apenasNumeros(dados.cep ?? '').length !== 8) erros.cep = 'CEP com 8 dígitos'
+    if (!dados.numero?.trim()) erros.numero = 'Informe o número'
+  } else if (apenasNumeros(dados.telefone ?? '').length < 10) {
+    erros.telefone = 'Telefone com DDD'
+  }
+
   return erros
 }
 
@@ -67,13 +83,16 @@ const validarPagamento = (dados: Dados) => {
 }
 
 const Checkout = () => {
-  const { itens, valorTotal, taxaEntrega, limpar, abrir } = useCarrinho()
-  const [etapa, setEtapa] = useState<Etapa>('entrega')
+  const { itens, total, modo, limpar, abrir } = useCarrinho()
+  const [etapa, setEtapa] = useState<Etapa>('dados')
   const [dados, setDados] = useState<Dados>({})
   const [erros, setErros] = useState<Dados>({})
   const [pedido, setPedido] = useState<Pedido | null>(null)
 
-  const total = valorTotal + taxaEntrega
+  // trattorias do pedido, para mostrar onde retirar
+  const locaisRetirada = restaurantes.filter((restaurante) =>
+    itens.some((item) => item.restaurante === restaurante.nome)
+  )
 
   const alterar = (evento: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evento.target
@@ -82,7 +101,7 @@ const Checkout = () => {
     setErros((atuais) => ({ ...atuais, [name]: '' }))
   }
 
-  const campo = (nome: string, rotulo: string, props: { placeholder?: string; inputMode?: 'numeric' } = {}) => (
+  const campo = (nome: string, rotulo: string, props: { placeholder?: string; inputMode?: 'numeric' | 'tel' } = {}) => (
     <Campo $erro={!!erros[nome]}>
       <label htmlFor={nome}>{rotulo}</label>
       <input
@@ -98,9 +117,9 @@ const Checkout = () => {
     </Campo>
   )
 
-  const enviarEntrega = (evento: FormEvent) => {
+  const enviarDados = (evento: FormEvent) => {
     evento.preventDefault()
-    const encontrados = validarEntrega(dados)
+    const encontrados = validarDados(dados, modo)
     setErros(encontrados)
     if (Object.keys(encontrados).length === 0) {
       setEtapa('pagamento')
@@ -115,11 +134,14 @@ const Checkout = () => {
     if (Object.keys(encontrados).length > 0) return
 
     setPedido({
-      numero: String(Math.floor(100000 + Math.random() * 900000)),
-      itens,
+      numero: gerarNumeroPedido(),
       total,
       nome: dados.nome,
-      endereco: `${dados.endereco}, ${dados.numero} — ${dados.cidade}`
+      modo,
+      destino:
+        modo === 'entrega'
+          ? `${dados.endereco}, ${dados.numero} — ${dados.cidade}`
+          : locaisRetirada.map((local) => `${local.nome} (${local.bairro})`).join(' e ')
     })
     limpar()
     setEtapa('confirmado')
@@ -127,6 +149,8 @@ const Checkout = () => {
   }
 
   if (etapa === 'confirmado' && pedido) {
+    const primeiroNome = pedido.nome.split(' ')[0]
+
     return (
       <>
         <Cabecalho />
@@ -138,14 +162,22 @@ const Checkout = () => {
                 Pedido <em>confirmado!</em>
               </h1>
               <p className="numero">Pedido nº {pedido.numero}</p>
-              <p>
-                Obrigado, {pedido.nome.split(' ')[0]}! Sua massa já está sendo preparada e chega em{' '}
-                <b>{pedido.endereco}</b> em cerca de 30 minutos.
-              </p>
-              <p>
-                Lembre-se: nossos entregadores não estão autorizados a fazer cobranças extras. Após a
-                entrega, higienize as mãos e bom apetite!
-              </p>
+              {pedido.modo === 'entrega' ? (
+                <p>
+                  Obrigado, {primeiroNome}! Sua massa já está sendo preparada e chega em <b>{pedido.destino}</b> em
+                  cerca de 35 minutos.
+                </p>
+              ) : (
+                <p>
+                  Obrigado, {primeiroNome}! Seu pedido fica pronto em cerca de 20 minutos. É só retirar em{' '}
+                  <b>{pedido.destino}</b> e informar o número do pedido no balcão.
+                </p>
+              )}
+              {pedido.modo === 'entrega' && (
+                <p>
+                  Lembre-se: nossos entregadores não estão autorizados a fazer cobranças extras. Bom apetite!
+                </p>
+              )}
               <p className="total">Total pago: {formataPreco(pedido.total)}</p>
               <Botao para="/">Voltar ao início</Botao>
             </Confirmacao>
@@ -175,8 +207,8 @@ const Checkout = () => {
                 Finalizar <em>pedido</em>
               </Titulo>
               <Etapas>
-                <li className={etapa === 'entrega' ? 'atual' : 'feita'}>
-                  <b>1</b> Entrega
+                <li className={etapa === 'dados' ? 'atual' : 'feita'}>
+                  <b>1</b> {modo === 'entrega' ? 'Entrega' : 'Retirada'}
                 </li>
                 <li className={etapa === 'pagamento' ? 'atual' : ''}>
                   <b>2</b> Pagamento
@@ -187,19 +219,44 @@ const Checkout = () => {
               </Etapas>
 
               <Grade>
-                {etapa === 'entrega' ? (
-                  <Formulario onSubmit={enviarEntrega} noValidate>
-                    <h2>Para onde vamos levar?</h2>
-                    {campo('nome', 'Quem irá receber', { placeholder: 'Nome completo' })}
-                    {campo('endereco', 'Endereço', { placeholder: 'Rua, avenida...' })}
-                    <Linha>
-                      {campo('cidade', 'Cidade')}
-                      {campo('cep', 'CEP', { placeholder: '00000-000', inputMode: 'numeric' })}
-                    </Linha>
-                    <Linha>
-                      {campo('numero', 'Número', { inputMode: 'numeric' })}
-                      {campo('complemento', 'Complemento (opcional)', { placeholder: 'Apto, bloco...' })}
-                    </Linha>
+                {etapa === 'dados' ? (
+                  <Formulario onSubmit={enviarDados} noValidate>
+                    <h2>Como você quer receber?</h2>
+                    <SeletorModo />
+
+                    {modo === 'entrega' ? (
+                      <>
+                        {campo('nome', 'Quem irá receber', { placeholder: 'Nome completo' })}
+                        {campo('endereco', 'Endereço', { placeholder: 'Rua, avenida...' })}
+                        <Linha>
+                          {campo('cidade', 'Cidade')}
+                          {campo('cep', 'CEP', { placeholder: '00000-000', inputMode: 'numeric' })}
+                        </Linha>
+                        <Linha>
+                          {campo('numero', 'Número', { inputMode: 'numeric' })}
+                          {campo('complemento', 'Complemento (opcional)', { placeholder: 'Apto, bloco...' })}
+                        </Linha>
+                      </>
+                    ) : (
+                      <>
+                        <Retiradas>
+                          {locaisRetirada.map((local) => (
+                            <li key={local.id}>
+                              <strong>{local.nome}</strong>
+                              <span>
+                                {local.bairro} · pronto em {local.tempoPreparo}
+                              </span>
+                            </li>
+                          ))}
+                        </Retiradas>
+                        {campo('nome', 'Quem irá retirar', { placeholder: 'Nome completo' })}
+                        {campo('telefone', 'Celular para avisarmos quando estiver pronto', {
+                          placeholder: '(11) 90000-0000',
+                          inputMode: 'tel'
+                        })}
+                      </>
+                    )}
+
                     <div className="acoes">
                       <Botao onClick={abrir} variante="secundario">
                         ← Voltar ao carrinho
@@ -227,8 +284,8 @@ const Checkout = () => {
                       {campo('ano', 'Ano de vencimento', { placeholder: 'AA', inputMode: 'numeric' })}
                     </Linha>
                     <div className="acoes">
-                      <Botao onClick={() => setEtapa('entrega')} variante="secundario">
-                        ← Editar endereço
+                      <Botao onClick={() => setEtapa('dados')} variante="secundario">
+                        ← {modo === 'entrega' ? 'Editar endereço' : 'Editar retirada'}
                       </Botao>
                       <button type="submit" className="enviar">
                         Confirmar pagamento
@@ -250,15 +307,7 @@ const Checkout = () => {
                       </li>
                     ))}
                   </ul>
-                  <p>
-                    Subtotal <span>{formataPreco(valorTotal)}</span>
-                  </p>
-                  <p>
-                    Entrega <span>{taxaEntrega === 0 ? 'Grátis' : formataPreco(taxaEntrega)}</span>
-                  </p>
-                  <p className="total">
-                    Total <span>{formataPreco(total)}</span>
-                  </p>
+                  <ValoresPedido tema="escuro" />
                 </Resumo>
               </Grade>
             </>

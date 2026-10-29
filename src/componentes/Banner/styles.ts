@@ -37,3 +37,19 @@ export const Nome = styled.h1`
   margin-top: 16px;
   font-size: clamp(36px, 6vw, 64px);
 `
+
+export const Detalhes = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+
+  li {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background-color: rgba(251, 244, 233, 0.16);
+    backdrop-filter: blur(6px);
+    font-size: 14px;
+    font-weight: 700;
+  }
+`

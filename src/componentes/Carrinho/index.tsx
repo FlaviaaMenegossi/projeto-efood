@@ -1,11 +1,14 @@
-import { useEffect } from 'react'
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Botao from '../Botao'
+import SeletorModo from '../SeletorModo'
+import ValoresPedido from '../ValoresPedido'
 import fechar from '../../assets/images/close.svg'
 import { FRETE_GRATIS_A_PARTIR, useCarrinho } from '../../contexto/useCarrinho'
 import { formataPreco } from '../../data/restaurantes'
 import {
   Cabecalho,
+  CampoCupom,
   Fechar,
   Fundo,
   Gaveta,
@@ -19,9 +22,11 @@ import {
 } from './styles'
 
 const Carrinho = () => {
-  const { itens, aberto, fechar: fecharCarrinho, valorTotal, taxaEntrega, alterarQuantidade, remover } =
+  const { itens, aberto, fechar: fecharCarrinho, valorBase, modo, cupom, aplicarCupom, alterarQuantidade, remover } =
     useCarrinho()
   const navegar = useNavigate()
+  const [codigo, setCodigo] = useState('')
+  const [erroCupom, setErroCupom] = useState(false)
 
   useEffect(() => {
     if (!aberto) return
@@ -44,7 +49,32 @@ const Carrinho = () => {
     navegar(caminho)
   }
 
-  const faltaParaFrete = FRETE_GRATIS_A_PARTIR - valorTotal
+  const enviarCupom = (evento: FormEvent) => {
+    evento.preventDefault()
+    const valido = aplicarCupom(codigo)
+    setErroCupom(!valido)
+    if (valido) setCodigo('')
+  }
+
+  // mostra quanto falta para o frete grátis (na retirada, já não há taxa)
+  let meta: { texto: ReactNode; progresso: number; completa: boolean }
+  if (modo === 'entrega' && valorBase < FRETE_GRATIS_A_PARTIR) {
+    meta = {
+      texto: (
+        <>
+          Faltam <b>{formataPreco(FRETE_GRATIS_A_PARTIR - valorBase)}</b> para ganhar frete grátis
+        </>
+      ),
+      progresso: valorBase / FRETE_GRATIS_A_PARTIR,
+      completa: false
+    }
+  } else {
+    meta = {
+      texto: <>{modo === 'entrega' ? 'Você ganhou frete grátis!' : 'Retirada no local, sem taxa de entrega!'}</>,
+      progresso: 1,
+      completa: true
+    }
+  }
 
   return (
     <>
@@ -72,16 +102,10 @@ const Carrinho = () => {
           </Vazio>
         ) : (
           <>
-            <Meta $completa={faltaParaFrete <= 0}>
-              {faltaParaFrete > 0 ? (
-                <>
-                  Faltam <b>{formataPreco(faltaParaFrete)}</b> para ganhar frete grátis
-                </>
-              ) : (
-                <>Você ganhou frete grátis!</>
-              )}
+            <Meta $completa={meta.completa}>
+              {meta.texto}
               <span>
-                <i style={{ width: `${Math.min(100, (valorTotal / FRETE_GRATIS_A_PARTIR) * 100)}%` }} />
+                <i style={{ width: `${Math.min(100, meta.progresso * 100)}%` }} />
               </span>
             </Meta>
 
@@ -92,6 +116,7 @@ const Carrinho = () => {
                   <div>
                     <h3>{prato.nome}</h3>
                     <small>{restaurante}</small>
+                    {prato.leve2pague1 && <em>Leve 2, pague 1</em>}
                     <Quantidade>
                       <button
                         type="button"
@@ -121,15 +146,27 @@ const Carrinho = () => {
             </Lista>
 
             <Resumo>
-              <p>
-                Subtotal <span>{formataPreco(valorTotal)}</span>
-              </p>
-              <p>
-                Entrega <span>{taxaEntrega === 0 ? 'Grátis' : formataPreco(taxaEntrega)}</span>
-              </p>
-              <p className="total">
-                Total <span>{formataPreco(valorTotal + taxaEntrega)}</span>
-              </p>
+              <SeletorModo />
+
+              {!cupom && (
+                <CampoCupom onSubmit={enviarCupom} $erro={erroCupom}>
+                  <input
+                    value={codigo}
+                    onChange={(evento) => {
+                      setCodigo(evento.target.value)
+                      setErroCupom(false)
+                    }}
+                    placeholder="Tem um cupom?"
+                    aria-label="Código do cupom"
+                    aria-invalid={erroCupom}
+                  />
+                  <button type="submit">Aplicar</button>
+                  {erroCupom && <small>Cupom inválido. Experimente MASSA30.</small>}
+                </CampoCupom>
+              )}
+
+              <ValoresPedido podeRemoverCupom />
+
               <Botao onClick={() => irPara('/checkout')} largura="total">
                 Finalizar pedido →
               </Botao>

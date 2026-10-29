@@ -66,8 +66,8 @@ const marcos = [
   },
   {
     ano: '2026',
-    titulo: 'Reserva de mesa',
-    texto: 'Além do delivery, agora você garante sua mesa nas trattorias parceiras em dois cliques.',
+    titulo: 'Retire no balcão',
+    texto: 'Além do delivery, agora você pede pelo site e retira direto na trattoria, sem taxa de entrega.',
     imagem: salao
   }
 ]
@@ -136,7 +136,7 @@ const NossaHistoria = () => {
               <em style={{ animationDelay: `${palavrasTitulo.length * 90}ms` }}>para a sua mesa.</em>
             </TituloAbertura>
             <p>
-              A efood nasceu de uma vontade simples: comer a massa das melhores trattorias sem sair de casa — e sem
+              O eFood nasceu de uma vontade simples: comer a massa das melhores trattorias sem sair de casa — e sem
               perder o ponto.
             </p>
             <Acoes>
@@ -182,7 +182,7 @@ const NossaHistoria = () => {
                 saem da cozinha?
               </p>
               <p>
-                Desde então, a efood conecta pessoas a trattorias que fazem tudo do zero. Escolhemos cada parceira a
+                Desde então, o eFood conecta pessoas a trattorias que fazem tudo do zero. Escolhemos cada parceira a
                 dedo, provamos o cardápio e cuidamos para que o caminho até a sua mesa preserve o sabor.
               </p>
               <Citacao>“A lasanha não fazia entrega. A gente resolveu isso.”</Citacao>

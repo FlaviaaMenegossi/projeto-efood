@@ -1,8 +1,8 @@
 <h1 align="center">🍝 eFood — Massas frescas, direto da trattoria</h1>
 
 <p align="center">
-  <strong>Plataforma de delivery e reserva de mesa para restaurantes de massas artesanais.</strong><br />
-  Escolha a trattoria, monte o pedido, finalize a compra — ou garanta sua mesa em dois cliques.
+  <strong>Plataforma de delivery de massas artesanais das melhores trattorias.</strong><br />
+  Escolha a trattoria, monte o pedido e receba em casa — ou passe para retirar, sem taxa de entrega.
 </p>
 
 <p align="center">
@@ -21,11 +21,11 @@
 
 ## 📌 Sobre o projeto
 
-O **eFood** é um site de delivery focado em **massas artesanais**. A pessoa encontra trattorias perto de casa, navega pelo cardápio, adiciona pratos ao carrinho e finaliza o pedido — tudo em uma interface pensada para dar **fome só de olhar**.
+O **eFood** é um site de delivery focado em **massas artesanais**. A pessoa encontra trattorias perto de casa, navega pelo cardápio, adiciona pratos ao carrinho e finaliza o pedido — recebendo em casa ou retirando no local — tudo em uma interface pensada para dar **fome só de olhar**.
 
 O projeto partiu de um [layout base no Figma](https://www.figma.com/design/JjduV2Tg713TzYUUsees8b/efood) e foi **redesenhado do zero**: nova paleta inspirada na cozinha italiana (vermelho tomate, verde manjericão, amarelo trigo), tipografia editorial com **Fraunces + Manrope**, animações e várias funcionalidades que não existiam no original.
 
-> 💡 Projeto de estudo/portfólio. Restaurantes, preços, avaliações e depoimentos são fictícios, e o pagamento é apenas simulado.
+> 💡 Projeto de estudo/portfólio. Restaurantes, preços, avaliações, depoimentos e selos são fictícios, e o pagamento é apenas simulado.
 
 ---
 
@@ -33,14 +33,17 @@ O projeto partiu de um [layout base no Figma](https://www.figma.com/design/JjduV
 
 | | |
 |---|---|
-| 🎯 **Banner de promoções** | Carrossel em tela cheia com troca automática, selo animado, **cupom que copia com um clique** e **contagem regressiva** até a meia-noite |
-| 📍 **Perto de você** | Abas **Delivery** e **Reservar mesa**, busca por bairro, **mapa ilustrado com pinos** que reagem ao passar o mouse e horários para reservar |
-| 🍽️ **Cardápio** | Página de cada trattoria com os pratos e **modal de detalhes** (fecha com `Esc` ou clicando fora) |
-| 🛒 **Carrinho global** | Gaveta lateral disponível em todas as páginas, controle de quantidade, **barra de progresso para frete grátis** e itens salvos mesmo ao recarregar a página |
-| 💳 **Checkout em etapas** | Entrega → Pagamento → Confirmação, com **validação de campos** e **máscaras** de CEP e cartão |
+| 🎯 **Banner de promoções** | Carrossel em tela cheia com troca automática, selo animado, **cupom aplicado no carrinho com um toque** e **contagem regressiva** até a meia-noite |
+| 🎟️ **Cupom de boas-vindas** | Card em destaque com **30% OFF no 1º pedido** logo na home — um toque e o cupom já entra no carrinho |
+| 📍 **Perto de você** | Abas **Delivery** e **Retirar no local**, busca por bairro, tempos de entrega/preparo e **mapa ilustrado com pinos** que reagem ao passar o mouse |
+| 🍽️ **Cardápio** | **42 pratos exclusivos**, sem repetição entre as 6 trattorias: lasanhas, massas recheadas (ravioli, tortellini, cappelletti), massas longas e curtas, e sobremesas (tiramisù, panna cotta, cannoli, gelato…). Selos de promoção e **modal de detalhes** (fecha com `Esc` ou clicando fora) |
+| 🛒 **Carrinho global** | Gaveta lateral em todas as páginas, **promoções calculadas de verdade** (leve 2, pague 1, combo e cupom de 30%), **barra de progresso** até o frete grátis e itens salvos ao recarregar |
+| 🛵 **Entrega ou retirada** | Escolha entre **receber em casa** (frete grátis acima de R$ 80) ou **retirar no local** sem taxa — a escolha vale para o site todo |
+| 💳 **Checkout em etapas** | Entrega/Retirada → Pagamento → Confirmação, com **validação de campos** e **máscaras** de CEP, telefone e cartão |
 | 📖 **Nossa história** | Página com **animações ao rolar**: números que contam sozinhos, linha do tempo que se preenche e galeria em movimento |
 | 📰 **Blog** | Lista com filtro por categoria, post em destaque e página individual para cada artigo |
 | ✉️ **Contato** | Formulário validado, canais de atendimento e perguntas frequentes |
+| 🏅 **Rodapé** | Selos de confiança e prêmios, links das páginas e redes sociais |
 | 📱 **Responsivo** | Layout pensado para celular, tablet e desktop, com menu hambúrguer no mobile |
 | ♿ **Acessível** | HTML semântico, navegação por teclado, `aria-*` nos componentes interativos e respeito à preferência de **movimento reduzido** |
 
@@ -54,7 +57,7 @@ O projeto partiu de um [layout base no Figma](https://www.figma.com/design/JjduV
     <td width="50%"><img src="docs/trattorias.jpg" alt="Lista de trattorias em destaque" /></td>
   </tr>
   <tr>
-    <td align="center"><sub><b>Perto de você</b> — delivery ou reserva, com mapa interativo</sub></td>
+    <td align="center"><sub><b>Perto de você</b> — delivery ou retirada, com mapa interativo</sub></td>
     <td align="center"><sub><b>Trattorias em destaque</b></sub></td>
   </tr>
   <tr>
@@ -70,7 +73,7 @@ O projeto partiu de um [layout base no Figma](https://www.figma.com/design/JjduV
     <td><img src="docs/checkout.jpg" alt="Checkout na etapa de pagamento" /></td>
   </tr>
   <tr>
-    <td align="center"><sub><b>Carrinho</b> com meta de frete grátis</sub></td>
+    <td align="center"><sub><b>Carrinho</b> com cupom, metas e escolha entre entrega ou retirada</sub></td>
     <td align="center"><sub><b>Checkout</b> em etapas com resumo do pedido</sub></td>
   </tr>
   <tr>
@@ -159,7 +162,7 @@ Abra **http://localhost:5173** no navegador.
 | `npm run preview` | Serve a versão de produção localmente |
 | `npm run lint` | Verifica o código com o Oxlint |
 
-> 🎟️ Dica: na página inicial, copie o cupom **MASSA30** no banner de promoção.
+> 🎟️ Dica: na página inicial, toque no cupom **MASSA30** do banner para ganhar 30% OFF — ou leve 2 lasanhas da Nonna Rosa e pague só 1.
 
 ---
 

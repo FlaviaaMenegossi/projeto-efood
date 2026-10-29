@@ -24,8 +24,8 @@ const perguntas = [
     resposta: 'Fale com a gente pelo WhatsApp com o número do pedido e uma foto. Resolvemos com reembolso ou novo envio.'
   },
   {
-    pergunta: 'Posso cancelar uma reserva de mesa?',
-    resposta: 'Sim, sem custo, até 2 horas antes do horário reservado.'
+    pergunta: 'Como funciona a retirada no local?',
+    resposta: 'Escolha "Retirar no local" no carrinho, finalize o pedido e avisamos pelo celular quando estiver pronto. Não há taxa de entrega.'
   },
   {
     pergunta: 'Quero ser uma trattoria parceira. Como faço?',
@@ -107,7 +107,7 @@ const Contato = () => {
                   <label htmlFor="assunto">Assunto</label>
                   <select id="assunto" name="assunto" value={dados.assunto} onChange={alterar}>
                     <option>Pedido</option>
-                    <option>Reserva de mesa</option>
+                    <option>Retirada no local</option>
                     <option>Sugestão ou elogio</option>
                     <option>Quero ser parceiro</option>
                     <option>Outro assunto</option>

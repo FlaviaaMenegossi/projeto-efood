@@ -71,9 +71,11 @@ export const Selos = styled.ul`
   gap: 10px;
 
   li > div {
-    width: 112px;
-    height: 104px;
-    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 6px;
+    border: 2px solid ${cores.trigo};
     transition: transform 0.2s ease;
 
     &:hover {
@@ -82,112 +84,119 @@ export const Selos = styled.ul`
   }
 `
 
+const verde = '#7AB51D'
+
 export const Garantia = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 8px;
-  background-color: ${cores.papel};
-  border: 3px solid ${cores.trigo};
-  color: ${cores.tinta};
+  gap: 2px;
+  background-color: #fff;
+  color: #555;
   text-align: center;
 
   img {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
 
   span {
-    margin-top: 6px;
+    margin-top: 2px;
     font-size: 12px;
-    font-weight: 700;
-    line-height: 1.1;
+    line-height: 1;
   }
 
   b {
-    font-family: ${fontes.titulo};
-    font-style: italic;
-    font-size: 16px;
-    color: ${cores.tomate};
+    font-size: 13px;
+    font-weight: 800;
+    color: ${cores.tinta};
+    letter-spacing: -0.02em;
+
+    i {
+      font-style: italic;
+      color: ${verde};
+    }
   }
 `
 
 export const Premio = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  padding-top: 8px;
-  background-color: ${cores.tinta};
-  border: 3px solid ${cores.trigo};
+  background-color: #111;
   text-align: center;
 
-  span {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: ${cores.trigo};
+  .topo {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 6px 6px 2px;
+    text-align: left;
   }
 
   img {
-    position: absolute;
-    top: 24px;
-    width: 104px;
+    width: 26px;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 8.5px;
+    font-weight: 800;
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: #fff;
+
+    em {
+      font-style: normal;
+      color: ${verde};
+    }
   }
 
   strong {
-    position: relative;
-    margin-top: 8px;
-    font-family: ${fontes.titulo};
-    font-size: 20px;
-    line-height: 1.2;
-    color: ${cores.creme};
+    padding: 2px 4px 4px;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: ${verde};
   }
 
   b {
-    position: relative;
     margin-top: auto;
-    width: 100%;
-    padding: 5px 0;
-    background-color: ${cores.trigo};
-    color: ${cores.tomateEscuro};
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+    padding: 3px 0;
+    line-height: 1.2;
+    background-color: #fff;
+    font-family: ${fontes.titulo};
+    font-style: italic;
+    font-size: 14px;
+    color: ${cores.tomate};
   }
 `
 
 export const Social = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 6px 20px;
 
   a {
     display: grid;
     place-items: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 1px solid rgba(251, 244, 233, 0.3);
+    width: 32px;
+    height: 32px;
+    opacity: 0.85;
     transition:
-      background-color 0.2s ease,
-      border-color 0.2s ease,
+      opacity 0.2s ease,
       transform 0.2s ease;
 
     &:hover {
-      background-color: ${cores.tomate};
-      border-color: ${cores.tomate};
-      transform: translateY(-2px);
+      opacity: 1;
+      transform: translateY(-2px) scale(1.1);
     }
   }
 
   img {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
   }
 `
 

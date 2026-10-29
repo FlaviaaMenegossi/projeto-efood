@@ -169,36 +169,6 @@ export const Busca = styled.form`
   }
 `
 
-export const Pessoas = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-weight: 700;
-  animation: ${surgir} 0.3s ease;
-
-  button {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid rgba(251, 244, 233, 0.3);
-    color: ${cores.creme};
-    font-size: 18px;
-
-    &:hover {
-      background-color: ${cores.creme};
-      color: ${cores.tinta};
-    }
-  }
-
-  b {
-    min-width: 24px;
-    text-align: center;
-    font-family: ${fontes.titulo};
-    font-size: 24px;
-    color: ${cores.trigo};
-  }
-`
-
 export const Lista = styled.ul`
   display: flex;
   flex-direction: column;
@@ -272,53 +242,6 @@ export const Acao = styled(Link)`
   &:hover {
     background-color: ${cores.tomate};
     color: ${cores.creme};
-  }
-`
-
-export const Horarios = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 12px 0 0 46px;
-
-  button {
-    padding: 8px 14px;
-    border-radius: 10px;
-    border: 1px solid rgba(251, 244, 233, 0.25);
-    color: ${cores.creme};
-    font-size: 14px;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    transition:
-      background-color 0.2s ease,
-      border-color 0.2s ease;
-
-    &:hover {
-      background-color: ${cores.tomate};
-      border-color: ${cores.tomate};
-    }
-  }
-`
-
-export const Confirmacao = styled.p`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin: 12px 0 0 46px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  background-color: ${cores.manjericao};
-  color: ${cores.trigo};
-  font-weight: 700;
-  font-size: 14px;
-  animation: ${surgir} 0.3s ease;
-
-  button {
-    color: ${cores.creme};
-    font-size: 13px;
-    text-decoration: underline;
-    opacity: 0.8;
   }
 `
 

@@ -148,6 +148,31 @@ export const Campo = styled.div<{ $erro: boolean }>`
   }
 `
 
+export const Retiradas = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background-color: ${cores.creme};
+    border: 1px dashed ${cores.manjericao};
+  }
+
+  strong {
+    font-family: ${fontes.titulo};
+    font-size: 18px;
+  }
+
+  span {
+    font-size: 14px;
+    color: ${cores.tintaSuave};
+  }
+`
+
 export const Erro = styled.small`
   font-size: 12px;
   font-weight: 700;
@@ -191,27 +216,6 @@ export const Resumo = styled.aside`
 
     span {
       flex: 1;
-    }
-  }
-
-  p {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 8px;
-    font-size: 14px;
-    opacity: 0.8;
-  }
-
-  .total {
-    margin-top: 16px;
-    font-size: 18px;
-    font-weight: 700;
-    opacity: 1;
-
-    span {
-      font-family: ${fontes.titulo};
-      font-size: 26px;
-      color: ${cores.trigo};
     }
   }
 

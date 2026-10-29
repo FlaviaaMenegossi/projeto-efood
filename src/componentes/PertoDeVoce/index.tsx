@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import mapa from '../../assets/images/mapa.svg'
+import { useCarrinho } from '../../contexto/useCarrinho'
 import type { Restaurante } from '../../data/restaurantes'
 import { Container } from '../../styles'
 import {
@@ -7,15 +8,12 @@ import {
   Abas,
   Acao,
   Busca,
-  Confirmacao,
   Frase,
   Grade,
-  Horarios,
   Item,
   Lista,
   Mapa,
   Painel,
-  Pessoas,
   Pino,
   Resumo,
   Secao,
@@ -28,8 +26,6 @@ type Props = {
   restaurantes: Restaurante[]
 }
 
-type Modo = 'delivery' | 'reserva'
-
 const normaliza = (texto: string) =>
   texto
     .normalize('NFD')
@@ -40,12 +36,11 @@ const normaliza = (texto: string) =>
 const formataKm = (km: number) => `${km.toLocaleString('pt-BR')} km`
 
 const PertoDeVoce = ({ restaurantes }: Props) => {
-  const [modo, setModo] = useState<Modo>('delivery')
+  // o modo escolhido aqui vale para o site todo (carrinho e checkout)
+  const { modo, setModo } = useCarrinho()
   const [busca, setBusca] = useState('')
   const [termo, setTermo] = useState('')
   const [ativo, setAtivo] = useState<number | null>(null)
-  const [pessoas, setPessoas] = useState(2)
-  const [reservas, setReservas] = useState<Record<number, string>>({})
 
   const proximos = restaurantes
     .filter(
@@ -61,9 +56,6 @@ const PertoDeVoce = ({ restaurantes }: Props) => {
     setTermo(busca)
   }
 
-  const reservar = (id: number, horario: string) =>
-    setReservas((atuais) => ({ ...atuais, [id]: horario }))
-
   return (
     <Secao id="perto">
       <Container>
@@ -76,35 +68,35 @@ const PertoDeVoce = ({ restaurantes }: Props) => {
 
         <Grade>
           <Painel>
-            <Abas role="tablist" aria-label="Como você quer comer?">
+            <Abas role="tablist" aria-label="Como você quer receber o pedido?">
               <Aba
                 type="button"
                 role="tab"
-                aria-selected={modo === 'delivery'}
-                $ativa={modo === 'delivery'}
-                onClick={() => setModo('delivery')}
+                aria-selected={modo === 'entrega'}
+                $ativa={modo === 'entrega'}
+                onClick={() => setModo('entrega')}
               >
                 Delivery
               </Aba>
               <Aba
                 type="button"
                 role="tab"
-                aria-selected={modo === 'reserva'}
-                $ativa={modo === 'reserva'}
-                onClick={() => setModo('reserva')}
+                aria-selected={modo === 'retirada'}
+                $ativa={modo === 'retirada'}
+                onClick={() => setModo('retirada')}
               >
-                Reservar mesa
+                Retirar no local
               </Aba>
             </Abas>
 
-            <Frase>
-              {modo === 'delivery' ? (
+            <Frase key={modo}>
+              {modo === 'entrega' ? (
                 <>
-                  Quentinha na sua porta <em>em até 30 minutos.</em>
+                  Quentinha na sua porta <em>em cerca de 35 minutos.</em>
                 </>
               ) : (
                 <>
-                  Sua mesa pronta, <em>sem fila e sem espera.</em>
+                  Pediu, passou, levou. <em>Sem taxa de entrega.</em>
                 </>
               )}
             </Frase>
@@ -119,28 +111,6 @@ const PertoDeVoce = ({ restaurantes }: Props) => {
               />
               <button type="submit">Buscar</button>
             </Busca>
-
-            {modo === 'reserva' && (
-              <Pessoas>
-                Mesa para
-                <button
-                  type="button"
-                  onClick={() => setPessoas((total) => Math.max(1, total - 1))}
-                  aria-label="Menos pessoas"
-                >
-                  −
-                </button>
-                <b>{pessoas}</b>
-                <button
-                  type="button"
-                  onClick={() => setPessoas((total) => Math.min(12, total + 1))}
-                  aria-label="Mais pessoas"
-                >
-                  +
-                </button>
-                {pessoas === 1 ? 'pessoa' : 'pessoas'}
-              </Pessoas>
-            )}
 
             {proximos.length === 0 ? (
               <Vazio>
@@ -171,49 +141,14 @@ const PertoDeVoce = ({ restaurantes }: Props) => {
                       <div>
                         <h3>{restaurante.nome}</h3>
                         <p>
-                          {restaurante.bairro} · {formataKm(restaurante.distancia)}
-                          {modo === 'delivery' && (
-                            <>
-                              {' '}
-                              · {restaurante.tempoEntrega}
-                              {restaurante.freteGratis && <b>Frete grátis</b>}
-                            </>
-                          )}
+                          {restaurante.bairro} · {formataKm(restaurante.distancia)} ·{' '}
+                          {modo === 'entrega'
+                            ? `entrega em ${restaurante.tempoEntrega}`
+                            : `pronto em ${restaurante.tempoPreparo}`}
                         </p>
                       </div>
-                      {modo === 'delivery' && <Acao to={`/perfil/${restaurante.id}`}>Pedir</Acao>}
+                      <Acao to={`/perfil/${restaurante.id}`}>{modo === 'entrega' ? 'Pedir' : 'Retirar'}</Acao>
                     </Resumo>
-
-                    {modo === 'reserva' &&
-                      (reservas[restaurante.id] ? (
-                        <Confirmacao>
-                          ✓ Mesa para {pessoas} reservada às {reservas[restaurante.id]}
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setReservas((atuais) => {
-                                const resto = { ...atuais }
-                                delete resto[restaurante.id]
-                                return resto
-                              })
-                            }
-                          >
-                            alterar
-                          </button>
-                        </Confirmacao>
-                      ) : (
-                        <Horarios>
-                          {restaurante.horarios.map((horario) => (
-                            <button
-                              key={horario}
-                              type="button"
-                              onClick={() => reservar(restaurante.id, horario)}
-                            >
-                              {horario}
-                            </button>
-                          ))}
-                        </Horarios>
-                      ))}
                   </Item>
                 ))}
               </Lista>

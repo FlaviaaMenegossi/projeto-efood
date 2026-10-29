@@ -29,7 +29,7 @@ export const depoimentos: Depoimento[] = [
     nome: 'Rafael Tanaka',
     bairro: 'Vila Madalena',
     nota: 5,
-    texto: 'Pedi a lasanha na terça da promoção e sobrou pro almoço do dia seguinte. Ragù com gosto de comida de vó.',
+    texto: 'Aproveitei o leve 2, pague 1 da lasanha e sobrou pro almoço do dia seguinte. Ragù com gosto de comida de vó.',
     prato: 'Lasanha alla Bolognese',
     restaurante: 'Nonna Rosa'
   },
@@ -38,8 +38,8 @@ export const depoimentos: Depoimento[] = [
     nome: 'Juliana Ferraz',
     bairro: 'Jardins',
     nota: 5,
-    texto: 'Reservei mesa pelo site em dois cliques e quando cheguei já estava tudo pronto. Sem fila, sem estresse.',
-    prato: 'Reserva para 4 pessoas',
+    texto: 'Pedi pelo site e passei pra retirar na volta do trabalho. Estava pronto e quentinho, sem fila e sem taxa.',
+    prato: 'Farfalle ao Pesto',
     restaurante: 'Pastificio Verde'
   },
   {
@@ -56,17 +56,17 @@ export const depoimentos: Depoimento[] = [
     nome: 'Camila Rocha',
     bairro: 'Bela Vista',
     nota: 5,
-    texto: 'Ganhei o tiramisù de presente no pedido e fiquei encantada. Massa fresca de verdade, dá pra sentir a diferença.',
-    prato: 'Tiramisù della Nonna',
-    restaurante: 'Cantina Bellini'
+    texto: 'A lasanha de legumes chegou quentinha e muito bem servida. Massa fresca de verdade, dá pra sentir a diferença.',
+    prato: 'Lasanha de Legumes',
+    restaurante: 'Nonna Rosa'
   },
   {
     id: 6,
     nome: 'Diego Martins',
     bairro: 'Itaim Bibi',
     nota: 5,
-    texto: 'Usei o cupom da primeira compra e já fiz mais três pedidos. O fettuccine ao frango é outro nível.',
-    prato: 'Fettuccine ao Frango',
+    texto: 'Usei o cupom da primeira compra e já fiz mais três pedidos. O fettuccine ao mignon é outro nível.',
+    prato: 'Fettuccine ao Mignon',
     restaurante: 'Forchetta Bistrô'
   },
   {
@@ -83,8 +83,8 @@ export const depoimentos: Depoimento[] = [
     nome: 'Lucas Andrade',
     bairro: 'Vila Madalena',
     nota: 5,
-    texto: 'Fiz o combo massa + tiramisù pra um jantar a dois e pareceu restaurante de verdade. Recomendo demais!',
-    prato: 'Combo Trattoria',
+    texto: 'Fiz o combo massa + sobremesa pra um jantar a dois e pareceu restaurante de verdade. Recomendo demais!',
+    prato: 'Combo Mare',
     restaurante: 'Mare & Pasta'
   }
 ]

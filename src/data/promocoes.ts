@@ -26,6 +26,8 @@ export type Oferta = {
   valor: string
   titulo: string
   descricao: string
+  // quando existe, o card vira um botão que aplica o cupom no carrinho
+  cupom?: string
 }
 
 export const promocoes: Promocao[] = [
@@ -35,7 +37,7 @@ export const promocoes: Promocao[] = [
     selo: 'Primeira compra',
     destaque: '30%',
     titulo: 'OFF em qualquer massa da casa',
-    descricao: 'Use o cupom no seu primeiro pedido e prove a carbonara mais pedida da semana.',
+    descricao: 'Toque no cupom para aplicar no carrinho e prove a carbonara mais pedida da semana.',
     imagem: carbonara,
     adesivo: { topo: 'só', valor: 'HOJE' },
     chamada: 'Pedir agora',
@@ -46,10 +48,10 @@ export const promocoes: Promocao[] = [
   {
     id: 2,
     tema: 'manjericao',
-    selo: 'Terça da Lasanha',
+    selo: 'Promoção da semana',
     destaque: 'Leve 2',
     titulo: 'pague só 1 lasanha',
-    descricao: 'Lasanha alla bolognese com ragù de 6 horas. Toda terça, enquanto durar o forno.',
+    descricao: 'Lasanha alla bolognese da Nonna Rosa, com ragù de 6 horas. O desconto entra sozinho no carrinho.',
     imagem: lasanha,
     adesivo: { topo: 'economize', valor: '-50%' },
     chamada: 'Quero a minha',
@@ -60,13 +62,13 @@ export const promocoes: Promocao[] = [
   {
     id: 3,
     tema: 'tinta',
-    selo: 'Combo Trattoria',
+    selo: 'Combo Mare',
     destaque: 'R$ 79',
-    titulo: 'massa + tiramisù',
-    descricao: 'Spaghetti alle vongole com sobremesa da nonna. O jantar completo para dois.',
+    titulo: 'massa + sobremesa',
+    descricao: 'Spaghetti alle vongole com torta de chocolate, no Mare & Pasta. O jantar completo com preço de combo.',
     imagem: vongole,
     adesivo: { topo: 'combo', valor: '-27%' },
-    chamada: 'Montar combo',
+    chamada: 'Pedir o combo',
     link: '/perfil/4',
     precoDe: 108.8,
     precoPor: 79.9
@@ -75,6 +77,13 @@ export const promocoes: Promocao[] = [
 
 export const ofertas: Oferta[] = [
   {
+    id: 4,
+    valor: '30% OFF',
+    titulo: 'no 1º pedido',
+    descricao: 'Toque para aplicar o cupom MASSA30',
+    cupom: 'MASSA30'
+  },
+  {
     id: 1,
     valor: 'Frete grátis',
     titulo: 'acima de R$ 80',
@@ -82,14 +91,14 @@ export const ofertas: Oferta[] = [
   },
   {
     id: 2,
-    valor: 'Tiramisù',
-    titulo: 'de presente',
-    descricao: 'Em pedidos acima de R$ 120'
+    valor: 'Entrega rápida',
+    titulo: 'em cerca de 35 min',
+    descricao: 'Quentinha na sua porta'
   },
   {
     id: 3,
-    valor: '10% de volta',
-    titulo: 'às sextas',
-    descricao: 'Cashback para o próximo pedido'
+    valor: 'Retire no local',
+    titulo: 'sem taxa',
+    descricao: 'Peça pelo site e busque na trattoria'
   }
 ]

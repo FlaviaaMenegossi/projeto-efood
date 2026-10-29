@@ -9,7 +9,7 @@ import tiktok from '../../assets/images/tiktok.svg'
 import linkedin from '../../assets/images/linkedin.svg'
 import whatsapp from '../../assets/images/whatsapp.svg'
 import seloGarantia from '../../assets/images/selo-garantia.svg'
-import louros from '../../assets/images/louros.svg'
+import louros from '../../assets/images/louros-verde.svg'
 import { Container } from '../../styles'
 import {
   Aviso,
@@ -59,17 +59,25 @@ const Rodape = () => (
             <li>
               <Garantia>
                 <img src={seloGarantia} alt="" />
-                <span>Pedido garantido</span>
-                <b>efood</b>
+                <span>Verificada por</span>
+                <b>
+                  Compra<i>Segura</i>
+                </b>
               </Garantia>
             </li>
             {premios.map((ano) => (
               <li key={ano}>
                 <Premio>
-                  <span>Top trattorias</span>
-                  <img src={louros} alt="" />
-                  <strong>{ano}</strong>
-                  <b>Escolha do cliente</b>
+                  <div className="topo">
+                    <img src={louros} alt="" />
+                    <span>
+                      Melhores do
+                      <br />
+                      delivery <em>{ano}</em>
+                    </span>
+                  </div>
+                  <strong>Empresa vencedora</strong>
+                  <b>eFood</b>
                 </Premio>
               </li>
             ))}
@@ -87,8 +95,8 @@ const Rodape = () => (
         </Direita>
       </Conteudo>
       <Aviso>
-        A efood é uma plataforma para divulgação de estabelecimentos. A responsabilidade pela entrega e
-        qualidade dos produtos é toda do estabelecimento contratado.
+        O eFood conecta você às trattorias parceiras e cuida da entrega do seu pedido. Cardápio, preços e preparo
+        dos pratos são definidos por cada trattoria. Projeto fictício de portfólio.
       </Aviso>
     </Container>
   </RodapeContainer>

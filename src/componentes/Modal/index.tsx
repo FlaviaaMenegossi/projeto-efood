@@ -36,7 +36,11 @@ const Modal = ({ prato, aoFechar, aoAdicionar }: Props) => {
         <Info>
           <h3 id="modal-titulo">{prato.nome}</h3>
           <p>{prato.descricao}</p>
-          <Porcao>Serve: {prato.porcao}</Porcao>
+          <Porcao>
+            Serve: {prato.porcao}
+            {prato.leve2pague1 && ' · Leve 2, pague 1'}
+            {prato.precoDe && ` · de ${formataPreco(prato.precoDe)}`}
+          </Porcao>
           <Botao onClick={() => aoAdicionar(prato)}>
             Adicionar ao carrinho · {formataPreco(prato.preco)}
           </Botao>

@@ -28,7 +28,17 @@ const Perfil = () => {
   return (
     <>
       <Cabecalho />
-      <Banner tipo={restaurante.tipo} nome={restaurante.nome} />
+      <Banner
+        tipo={restaurante.tipo}
+        nome={restaurante.nome}
+        imagem={restaurante.capa}
+        detalhes={[
+          `★ ${restaurante.avaliacao.toLocaleString('pt-BR')}`,
+          `${restaurante.bairro} · ${restaurante.distancia.toLocaleString('pt-BR')} km`,
+          `Entrega em ${restaurante.tempoEntrega}`,
+          `Retirada em ${restaurante.tempoPreparo}`
+        ]}
+      />
       <ListaProdutos pratos={restaurante.cardapio} aoAbrir={setPratoAberto} />
       <Rodape />
       {pratoAberto && (

@@ -25,7 +25,7 @@ const Blog = () => {
     <>
       <Cabecalho />
       <TopoPagina
-        selo="Blog efood"
+        selo="Blog eFood"
         titulo={
           <>
             Histórias, receitas <em>e bastidores</em>

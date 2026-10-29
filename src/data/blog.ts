@@ -29,7 +29,7 @@ export const posts: Post[] = [
     categoria: 'Receitas',
     data: '2026-10-14',
     leitura: 5,
-    autor: 'Equipe efood',
+    autor: 'Equipe eFood',
     imagem: carbonara,
     conteudo: [
       'A carbonara é um dos pratos mais copiados — e mais mal-entendidos — da cozinha italiana. A versão romana tem só cinco ingredientes: massa, gema, pecorino romano, guanciale e pimenta-do-reino.',
@@ -45,7 +45,7 @@ export const posts: Post[] = [
     categoria: 'Bastidores',
     data: '2026-10-02',
     leitura: 7,
-    autor: 'Equipe efood',
+    autor: 'Equipe eFood',
     imagem: salao,
     conteudo: [
       'Às seis da manhã, a cozinha da Nonna Rosa já cheira a farinha. A massa da lasanha é aberta à mão, em folhas finas, e descansa enquanto o ragù começa a apurar.',
@@ -61,7 +61,7 @@ export const posts: Post[] = [
     categoria: 'Dicas',
     data: '2026-09-20',
     leitura: 3,
-    autor: 'Equipe efood',
+    autor: 'Equipe eFood',
     imagem: spaghettiPomodoro,
     conteudo: [
       'Micro-ondas é prático, mas resseca. O melhor caminho é a frigideira: aqueça em fogo médio com um fio de água ou caldo e tampe por dois minutos.',
@@ -76,7 +76,7 @@ export const posts: Post[] = [
     categoria: 'Receitas',
     data: '2026-09-08',
     leitura: 4,
-    autor: 'Equipe efood',
+    autor: 'Equipe eFood',
     imagem: ravioli,
     conteudo: [
       'O ravioli é uma tela em branco. A massa fresca recebe o recheio que a estação oferece — e muda de humor ao longo do ano.',
@@ -91,7 +91,7 @@ export const posts: Post[] = [
     categoria: 'Receitas',
     data: '2026-08-27',
     leitura: 4,
-    autor: 'Equipe efood',
+    autor: 'Equipe eFood',
     imagem: farfallePesto,
     conteudo: [
       'Manjericão fresco, pinoli levemente tostados, parmesão, alho e um bom azeite: esses são os ingredientes do pesto clássico genovês.',
@@ -102,14 +102,14 @@ export const posts: Post[] = [
   {
     slug: 'o-tiramisu-perfeito-existe',
     titulo: 'O tiramisù perfeito existe?',
-    resumo: 'Café forte, mascarpone e paciência. Conversamos com confeiteiros sobre a sobremesa mais pedida da efood.',
+    resumo: 'Café forte, mascarpone e paciência. Conversamos com confeiteiros sobre a sobremesa mais pedida do eFood.',
     categoria: 'Bastidores',
     data: '2026-08-15',
     leitura: 6,
-    autor: 'Equipe efood',
+    autor: 'Equipe eFood',
     imagem: tiramisu,
     conteudo: [
-      'O tiramisù é a sobremesa mais pedida na efood, e cada trattoria parceira defende a sua versão como a melhor.',
+      'O tiramisù é a sobremesa mais pedida no eFood, e cada trattoria parceira defende a sua versão como a melhor.',
       'Entre os confeiteiros, há consenso em três pontos: café espresso forte e frio, mascarpone de boa qualidade e pelo menos seis horas de geladeira.',
       'O resto é assinatura da casa: um toque de licor, cacau mais amargo ou biscoitos feitos ali mesmo.'
     ]
