@@ -64,3 +64,5 @@ secrets.*
 # Arquivos do Windows / OneDrive
 Thumbs.db
 desktop.ini
+
+.vercel

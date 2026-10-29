@@ -11,10 +11,21 @@
   <img src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white" alt="styled-components" />
   <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white" alt="React Router" />
   <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+</p>
+
+<h3 align="center">
+  <a href="https://projeto-efood-sable.vercel.app">🔗 Ver o site no ar</a>
+</h3>
+
+<p align="center">
+  <a href="https://projeto-efood-sable.vercel.app">
+    <img src="https://img.shields.io/badge/ACESSAR_O_EFOOD-C9372C?style=for-the-badge&logo=vercel&logoColor=white" alt="Acessar o eFood" height="40" />
+  </a>
 </p>
 
 <p align="center">
-  <img src="docs/home.jpg" alt="Página inicial do eFood com banner de promoção de 30% OFF" width="100%" />
+  <a href="https://projeto-efood-sable.vercel.app"><img src="docs/home.jpg" alt="Página inicial do eFood com banner de promoção de 30% OFF" width="100%" /></a>
 </p>
 
 ---
@@ -138,6 +149,8 @@ src/
 ---
 
 ## 🚀 Como rodar
+
+> 🌐 Quer só ver funcionando? Acesse **[projeto-efood-sable.vercel.app](https://projeto-efood-sable.vercel.app)** — publicado na Vercel.
 
 Pré-requisito: **[Node.js](https://nodejs.org/) 20+**
 
